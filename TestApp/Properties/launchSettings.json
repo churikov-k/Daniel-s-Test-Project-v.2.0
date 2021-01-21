@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TestApp": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\GasQuotes.csv\" test.result.csv"
+    }
+  }
+}
