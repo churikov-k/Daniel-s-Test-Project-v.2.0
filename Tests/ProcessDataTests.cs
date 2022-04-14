@@ -1,10 +1,11 @@
-﻿using NUnit.Framework;
-using TestApp;
+﻿using System.IO;
+using NUnit.Framework;
+using TestApp.Models;
 
 namespace Tests
 {
     [TestFixture]
-    public class DoWorkTests
+    public class ProcessDataTests
     {
         // Data in files inputData1.csv and expectedResult1.csv
         // has been taken from Daniel's task description
@@ -17,15 +18,22 @@ namespace Tests
         [SetUp]
         public void Init()
         {
-            Program.DoWork(InputFileName1, OutputFileName1);
-            Program.DoWork(InputFileName2, OutputFileName2);
+            var data = new QuoteData();
+            data.ProcessData(InputFileName1, OutputFileName1);
         }
 
         [Test]
-        public void DoWorkResult()
+        public void ProcessDataResult()
         {
             FileAssert.AreEqual( ExpectedResultFileName, OutputFileName1 );
-            FileAssert.AreEqual( ExpectedResultFileName, OutputFileName2 );
+        }
+        
+        [Test]
+        public void ProcessFailedDataResult()
+        {
+            var data = new QuoteData();
+
+            Assert.Throws<InvalidDataException>(() => data.ProcessData(InputFileName2, OutputFileName2));
         }
     }
 }
